@@ -10,7 +10,10 @@ const users = require('./routes/users');
 const clients = require('./routes/clients');
 const auth = require('./routes/auth');
 const partners = require('./routes/partners');
+const partner_type = require('./routes/partner_type');
+const payments = require('./routes/payments');
 const subscription_plans = require('./routes/subscription_plans');
+const dashboard = require('./routes/dashboard');
 // console.log(config.get('jwtPrivateKey'),'==============')
 // if(!config.get('jwtPrivateKey')) {
 //   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
@@ -41,7 +44,10 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/clients', clients);
 app.use('/api/partners', partners);
+app.use('/api/partner_type', partner_type);
+app.use('/api/payments', payments);
 app.use('/api/subscription_plans', subscription_plans);
+app.use('/api/dashboard', dashboard);
 
 var port = process.env.PORT || 2222;
 app.listen(port, function(){

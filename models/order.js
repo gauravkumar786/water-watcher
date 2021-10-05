@@ -2,18 +2,17 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const Order = mongoose.model('Order', new mongoose.Schema({
-    orderNumber: String,
+    orderId: { type: Number, default: 0 },
+    partnerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Partner',
+        default : null
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    name: String,
-    email: String,
-    phone: String,
     location: String,
-    address: String,
-    postCode: String,
-    propertyType: String,
     deliverySize: Number,
     quantity: Number,
     price: Number,

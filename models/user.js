@@ -5,16 +5,17 @@ const number = require('joi/lib/types/number');
 const boolean = require('joi/lib/types/boolean');
 
 const userSchema = new mongoose.Schema({
+    userId: { type: Number, default: 0 },
     firstName: {
         type: String,
         required: true,
-        minlength: 5,
+        minlength: 3,
         maxlength: 50
     },
     lastName: {
         type: String,
         required: true,
-        minlength: 5,
+        minlength: 3,
         maxlength: 50
     },   
     email: {
