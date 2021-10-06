@@ -50,9 +50,10 @@ const userSchema = new mongoose.Schema({
         minlength: 5,   
         maxlength: 20
     },
-    orders: [{
+    plan: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Order"
+        ref: "SubscriptionPlan",
+        default: null
     }],
     role: Number,
     isBlocked: { type: Boolean, default: false },
@@ -76,6 +77,7 @@ function validateUser(user) {
         city: Joi.string().min(5).max(50).required(),
         phone: Joi.string().min(5).max(20).required(),
         role: Joi.number().required(),
+        plan: Joi.string(),
     };
 
     return Joi.validate(user, schema);

@@ -7,12 +7,10 @@ const Joi = require('joi');
 
 router.get('/', auth, async function(req, res) {
   let findValues = { status: req.query.status }
-  if (req.user.role == 1) {
+  if (req.user.role == 2) {
     findValues.user = req.user._id;
   }
-  const orders = await Order
-    .find(findValues)
-    .select('user phone date')
+  const orders = await Order.find(findValues).populate('user').populate('plan');
   res.send(orders);
 });
 

@@ -6,7 +6,7 @@ const router = express.Router();
 const Joi = require('joi');
 
 router.get('/', auth, async function(req, res) {  
-  const payments = await Payments.find();
+  const payments = await Payments.find().populate('order').populate('user').populate('plan');
   res.send(payments);
 });
 
