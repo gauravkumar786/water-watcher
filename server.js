@@ -44,12 +44,11 @@ app.use('/api/partners', partners);
 app.use('/api/subscription_plans', subscription_plans);
 
 var port = process.env.PORT || 2222;
-app.listen(port, function(){
-  console.log('listening on testing*:'+ port);
+app.listen(port, function () {
+  console.log('listening on testing*:' + port);
 });
 
 //require('./socket')(io);
 
 
 
- 

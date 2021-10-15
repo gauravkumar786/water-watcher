@@ -7,12 +7,10 @@ const Joi = require('joi');
 
 router.get('/', auth, async function(req, res) {
   let findValues = { status: req.query.status }
-  if (req.user.role == 1) {
+  if (req.user.role == 2) {
     findValues.user = req.user._id;
   }
-  const orders = await Order
-    .find(findValues)
-    .select('user phone date')
+  const orders = await Order.find(findValues).populate('user').populate('plan');
   res.send(orders);
 });
 
@@ -23,26 +21,13 @@ router.get('/:id', async function(req, res) {
 
 router.post('/', auth, async function(req, res) {
   try {
-    // const schema = {     
-    //   userId: Joi.required(),
-    //   orderNumber: Joi.required(),
-    //   quantity: Joi.required(),
-    //   price: Joi.required(),
-    //   date: Joi.required(),
-    // }
-    // let { orderNumber, quantity, price } = req.body;
-    // let data = {
-    //   orderNumber,
-    //   quantity,
-    //   price,
-    // }
-    // const result = Joi.validate(req.body, schema);
-    // if(result.error) {
-    //   throw result.error.details[0].message;
-    // }
-    
+
+    // Get next Id
+    const autoIncId = await Order.find().count()+1;
+
     const order = new Order(req.body);
     order.user = req.user._id;
+    order.orderId = autoIncId;
     const _result = await order.save();
     res.send(_result);
   }

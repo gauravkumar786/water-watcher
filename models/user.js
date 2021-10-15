@@ -5,16 +5,17 @@ const number = require('joi/lib/types/number');
 const boolean = require('joi/lib/types/boolean');
 
 const userSchema = new mongoose.Schema({
+    userId: { type: Number, default: 0 },
     firstName: {
         type: String,
         required: true,
-        minlength: 5,
+        minlength: 3,
         maxlength: 50
     },
     lastName: {
         type: String,
         required: true,
-        minlength: 5,
+        minlength: 3,
         maxlength: 50
     },
     email: {
@@ -49,9 +50,10 @@ const userSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 20
     },
-    orders: [{
+    plan: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Order"
+        ref: "SubscriptionPlan",
+        default: null
     }],
     role: Number,
     isBlocked: { type: Boolean, default: false },
@@ -59,7 +61,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id, role: this.role }, 'weaterWatcher123');
+    const token = jwt.sign({ _id: this._id, firstName: this.firstName, lastName: this.lastName, role: this.role }, 'weaterWatcher123');
     return token;
 }
 
@@ -75,6 +77,7 @@ function validateUser(user) {
         city: Joi.string().min(5).max(50).required(),
         phone: Joi.string().min(5).max(20).required(),
         role: Joi.number().required(),
+        plan: Joi.string(),
     };
 
     return Joi.validate(user, schema);

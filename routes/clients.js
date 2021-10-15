@@ -6,8 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', [auth, admin], async function(req, res) {
-  const users = await User.find()
-    .select({ firstName: 1, lastName: 1, email: 1, phone: 1, address: 1, isBlocked: 1 });
+  const users = await User.find().populate('plan').populate('orders');
   res.send(users);
 });
 
