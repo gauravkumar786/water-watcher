@@ -24,8 +24,8 @@ mongoose.connect('mongodb://localhost/waterWatcher')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.log('Could not connect to MongoDB', err));
 
-// var http = require('http').Server(app);
-// var cors = require('cors')
+var http = require('http').Server(app);
+var cors = require('cors')
 // ///const fs = require('fs');
 // const io = require("socket.io")(http, {
 //   cors: {
@@ -35,7 +35,7 @@ mongoose.connect('mongodb://localhost/waterWatcher')
 //   }
 // });
 // const io = require("socket.io")(http);
-// app.use(cors());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
