@@ -5,16 +5,13 @@ const number = require('joi/lib/types/number');
 const boolean = require('joi/lib/types/boolean');
 
 const partnerSchema = new mongoose.Schema({
-    partner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
+    partnerId: String,
     partnerType: {
         type: String,
         required: true,
         minlength: 5,
         maxlength: 50
-    },   
+    },
     companyName: {
         type: String,
         required: true,
@@ -32,7 +29,7 @@ const partnerSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 255
-    },  
+    },
     contactMobile: {
         type: String,
         required: true,
@@ -52,7 +49,7 @@ const Partner = mongoose.model('Partner', partnerSchema);
 
 function validatePartner(partner) {
     const schema = {
-        partner: Joi.string().min(5).max(50).required(),
+        partnerId: Joi.string().min(5).max(50).required(),
         partnerType: Joi.string().min(5).max(50).required(),
         companyName: Joi.string().min(5).max(50).required(),
         contactName: Joi.string().min(5).max(50).required(),

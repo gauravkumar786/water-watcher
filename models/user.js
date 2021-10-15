@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 50
-    },   
+    },
     email: {
         type: String,
         required: true,
@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        minlength: 5,   
+        minlength: 5,
         maxlength: 20
     },
     orders: [{
@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
 });
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id, role: this.role }, 'weaterWatcher123');
     return token;
 }
